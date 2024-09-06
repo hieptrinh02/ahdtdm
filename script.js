@@ -4,7 +4,7 @@ let previousInput = '';
 
 function appendNumber(number) {
     currentInput += number;
-    document.getElementById('display').value = currentInput;
+    updateDisplay();
 }
 
 function setOperation(op) {
@@ -15,13 +15,14 @@ function setOperation(op) {
     operation = op;
     previousInput = currentInput;
     currentInput = '';
+    updateDisplay();
 }
 
 function clearDisplay() {
     currentInput = '';
     previousInput = '';
     operation = null;
-    document.getElementById('display').value = '';
+    updateDisplay();
 }
 
 function calculate() {
@@ -56,5 +57,13 @@ function calculate() {
     currentInput = result.toString();
     operation = null;
     previousInput = '';
-    document.getElementById('display').value = currentInput;
+    updateDisplay();
+}
+
+function updateDisplay() {
+    let displayText = currentInput;
+    if (operation) {
+        displayText = previousInput + ' ' + operation + ' ' + displayText;
+    }
+    document.getElementById('display').value = displayText;
 }
